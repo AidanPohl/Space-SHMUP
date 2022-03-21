@@ -1,9 +1,9 @@
 /**** 
- * Created by: Aidan Pohl (#1539290)
+ * Created by: Akram Taghavi-Burris
  * Date Created: March 16, 2022
  * 
- * Last Edited by: NA
- * Last Edited: March 16, 2022
+ * Last Edited by: Aidan Pohl
+ * Last Edited: March 21, 2022
  * 
  * Description: Hero ship controller
 ****/
@@ -93,7 +93,18 @@ public class Hero : MonoBehaviour
     {
 
         //player input
+        float xAxis = Input.GetAxis("Horizontal");
+        float yAxis = Input.GetAxis("Vertical");
+        //Change the transform based on axis
+        Vector3 pos = transform.position;
 
+        pos.x += xAxis * speed * Time.deltaTime;
+        pos.y += yAxis * speed * Time.deltaTime;
+
+        transform.position = pos;
+
+        //rotate the ship to make more dynamic feel
+        transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
     }//end Update()
 
 

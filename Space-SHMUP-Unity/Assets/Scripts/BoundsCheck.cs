@@ -1,9 +1,9 @@
 /**** 
- * Created by: Your Name
+ * Created by: Akram Taghavi-Burris
  * Date Created: March 16, 2022
  * 
- * Last Edited by: NA
- * Last Edited: March 16, 2022
+ * Last Edited by: Aidan Pohl
+ * Last Edited: March 21, 2022
  * 
  * Description: Checks if object is in bounds of camera
 ****/
@@ -87,6 +87,13 @@ public class BoundsCheck : MonoBehaviour
     }//end LateUpdate
 
     //Draw the bounds in the scene pane
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying) return;
+        Vector3 boundSize = new Vector3(camWidth * 2, camHeight * 2, 0.1f);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(Vector3.zero, boundSize);
+    }
 
 
 
