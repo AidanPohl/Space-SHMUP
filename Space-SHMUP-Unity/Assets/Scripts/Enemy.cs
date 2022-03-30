@@ -3,7 +3,7 @@
  * Date Created: March 16, 2022
  * 
  * Last Edited by: Aidan Pohl
- * Last Edited: March 16, 2022
+ * Last Edited: March 30, 2022
  * 
  * Description: Enemy controler
 ****/
@@ -68,4 +68,19 @@ public class Enemy : MonoBehaviour
 
     }//end Move()
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        GameObject otherGO = collision.gameObject;
+        if (otherGO.tag == "ProjectileHero")
+        {
+            Debug.Log("Enemy hit by Projectile Hero " + otherGO.name);
+            Destroy(otherGO);
+            Hero.SHIP.AddScore(score);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Enemy hit by Non Projectile Hero " + otherGO.name);
+        }
+    }
 }

@@ -2,8 +2,8 @@
  * Created by: Akram Taghavi-Burris
  * Date Created: Feb 23, 2022
  * 
- * Last Edited by: NA
- * Last Edited: Feb 26, 2022
+ * Last Edited by: Aidan Pohl
+ * Last Edited: Mar 30, 2022
  * 
  * Description: Basic GameManager Template
 ****/
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
     private int numberOfLives; //set number of lives in the inspector
     [Tooltip("Does the level get reset when a life is lost")]
     public bool resetLostLevel; //reset the lost level
-    //the amount of delay before restart
+    public float gameRestartDelay = 2f;//the amount of delay before restart
     static public int lives; // number of lives for player 
     public int Lives { get { return lives; } set { lives = value; } }//access to static variable lives [get/set methods]
 
@@ -223,7 +223,7 @@ public class GameManager : MonoBehaviour
 
         
         //SET ALL GAME LEVEL VARIABLES FOR START OF GAME
-        lives = numberOfLives; //set the number of lives
+        lives = 3; //set the number of lives
         score = 0; //set starting score
 
         //set High Score
@@ -286,7 +286,10 @@ public class GameManager : MonoBehaviour
     }//end NextLevel()
 
     //Delayed Restart
-   
+    void DelayedRestart()
+    {
+        Invoke("StartGame", gameRestartDelay);
+    }//end DelayedRestart()
 
     //PLAYER LOST A LIFE
     public void LostLife()
@@ -303,13 +306,13 @@ public class GameManager : MonoBehaviour
             //if this level resets when life is lost
             if (resetLostLevel){
                 numberOfLives = lives; //set lives left for level reset
-                
+                DelayedRestart();
             }//end if (resetLostLevel)
 
         } // end elseif
     }//end LostLife()
 
-
+ 
     //CHECK SCORE UPDATES
     public void UpdateScore(int point = 0)
     { //This method manages the score on update. 
