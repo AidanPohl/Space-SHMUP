@@ -2,20 +2,21 @@
  * Created by: Akram Taghavi-Burris
  * Date Created: March 16, 2022
  * 
- * Last Edited by: NA
- * Last Edited: March 16, 2022
+ * Last Edited by:
+ * Last Edited: 
  * 
  * Description: Shield level controler, adjusts the fresnel effect power based on level of shields.
 ****/
 
 
-/** Using Namespaces **/
+/*** Using Namespaces ***/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
+    /*** VARIABLES ***/
     public Color shieldColor; //color of shields
     public Color shieldHitColor; //color of shields hit
     public Color shieldPowerColor; //color of shields powerup
@@ -26,6 +27,8 @@ public class Shield : MonoBehaviour
     private float currLevel; //the ships current shield level
     private float lastLevel; //the last recorded amount of shield level
     private Material mat; //material of shield
+
+    /*** MEHTODS ***/
 
     // Start is called before the first frame update
     void Start()

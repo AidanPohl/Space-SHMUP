@@ -3,12 +3,12 @@
  * Date Created: March 16, 2022
  * 
  * Last Edited by: Aidan Pohl
- * Last Edited: March 30, 2022
+ * Last Edited: April 6, 2022
  * 
  * Description: Enemy controler
 ****/
 
-/** Using Namespaces **/
+/*** Using Namespaces ***/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,7 +46,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       Move();
+       //Call the Move Method
+        Move();
 
         //Check if bounds check exists and the object is off the bottom of the screne
         if(bndCheck != null && bndCheck.offDown)
@@ -58,29 +59,12 @@ public class Enemy : MonoBehaviour
 
     }//end Update()
 
-    //Virtual methods can be overiden by child instances
+    
+    //Virtual methods can be overridden by child instances
      public virtual void Move()
     {
-        Vector3 tempPos = pos; //temporary position
-        tempPos.y -= speed * Time.deltaTime;
-        pos = tempPos;
-
-
+        Vector3 temPos = pos; //temporay position
+        temPos.y -= speed * Time.deltaTime; //temporay y postion , moving down
+        pos = temPos; //position is equal to tempary positon
     }//end Move()
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        GameObject otherGO = collision.gameObject;
-        if (otherGO.tag == "ProjectileHero")
-        {
-            Debug.Log("Enemy hit by Projectile Hero " + otherGO.name);
-            Destroy(otherGO);
-            Hero.SHIP.AddScore(score);
-            Destroy(gameObject);
-        }
-        else
-        {
-            Debug.Log("Enemy hit by Non Projectile Hero " + otherGO.name);
-        }
-    }
 }

@@ -1,14 +1,14 @@
 /**** 
- * Created by: Akram Taghavi-Burris
+ * Created by: Akram Taghavi-Burrs
  * Date Created: Feb 23, 2022
  * 
  * Last Edited by: Aidan Pohl
- * Last Edited: Mar 30, 2022
+ * Last Edited: April 6, 2022
  * 
  * Description: Basic GameManager Template
 ****/
 
-/** Using Namespaces **/
+/*** Using Namespaces ***/
 using System; //C# library for system properties
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +16,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement; //libraries for accessing scenes
 
 //Setting the enum outside the class allows for direct access by the enum (classes) name directly in other classes.
-public enum GameState { Title, Playing, BeatLevel, LostLevel, GameOver, Idle };//enum of game states (work like it's own class)
+public enum GameState { Title, Playing, BeatLevel, LostLevel, GameOver, Idle , Testing };
+//enum of game states (work like it's own class)
+
 public class GameManager : MonoBehaviour
 {
     /*** VARIABLES ***/
@@ -63,14 +65,13 @@ public class GameManager : MonoBehaviour
     public int HighScore { get { return highScore; } set { highScore = value; } }//access to private variable highScore [get/set methods]
 
     [Space(10)]
-
-    //static vairables can not be updated in the inspector, however private serialized fileds can be
-    [SerializeField] //Access to private variables in editor
-    private int numberOfLives; //set number of lives in the inspector
+    
+    public int defaultsLives; //set number of lives in the inspector
+    private int currentLives; //number of lives remaining in level
     [Tooltip("Does the level get reset when a life is lost")]
     public bool resetLostLevel; //reset the lost level
-    public float gameRestartDelay = 2f;//the amount of delay before restart
     static public int lives; // number of lives for player 
+    public float gameRestartDelay = 2f; //the amount of delay before restart
     public int Lives { get { return lives; } set { lives = value; } }//access to static variable lives [get/set methods]
 
     static public int score;  //score value
@@ -133,14 +134,13 @@ public class GameManager : MonoBehaviour
 
     }//end Awake()
 
-
     //Start is called once before the update
     void Start()
     {
-        //if we run play the game from the level instead of start scene
-        if (currentSceneName != startScene) { SetDefaultGameStats(); }
+        //if we run play the game from the level instead of start scene (PLAYTESTING ONLY)
+        if (currentSceneName != startScene) { SetGameState(GameState.Testing); }//set the game state for testing }
 
-    }//end Start()
+        }//end Start()
 
 
     // Update is called once per frame
@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviour
         switch (gameState)
         {
             case GameState.Title:
-                //do nothing
+                currentLives = defaultsLives; //set current lives to default (inital) value
                 break;
 
             case GameState.Playing:
@@ -186,17 +186,25 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.LostLevel:
+                currentLives = defaultsLives; //reset current lives to default (inital) value
+
                 endMsg = looseMessage; //set loose message
                 GameOver(); //move to game over
                 break;
 
             case GameState.GameOver:
-                //do nothing
+                currentLives = defaultsLives; //set current lives to default (inital) value
                 break;
 
             case GameState.Idle:
                 //do nothing
                 break;
+
+            case GameState Testing:
+                currentLives = defaultsLives; //set current lives to default (inital) value
+                SetDefaultGameStats(); //Run the default game stats to playtest
+                break;
+
         }//end switch(gameStates)
     }//end CheckGameState()
 
@@ -221,9 +229,9 @@ public class GameManager : MonoBehaviour
         //store the current scene
         currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 
-        
+
         //SET ALL GAME LEVEL VARIABLES FOR START OF GAME
-        lives = 3; //set the number of lives
+        lives = currentLives; //set the number of lives
         score = 0; //set starting score
 
         //set High Score
@@ -285,18 +293,13 @@ public class GameManager : MonoBehaviour
 
     }//end NextLevel()
 
-    //Delayed Restart
-    void DelayedRestart()
-    {
-        Invoke("StartGame", gameRestartDelay);
-    }//end DelayedRestart()
 
     //PLAYER LOST A LIFE
     public void LostLife()
     {
         if (lives == 1) //if there is one life left and it is lost
         {
-            GameOver(); //game is over
+            SetGameState(GameState.LostLevel); //set the state to Lost Level
 
         } 
         else
@@ -304,15 +307,15 @@ public class GameManager : MonoBehaviour
             lives--; //subtract from lives reset level lost 
 
             //if this level resets when life is lost
-            if (resetLostLevel){
-                numberOfLives = lives; //set lives left for level reset
-                DelayedRestart();
+            if (resetLostLevel){  
+                currentLives = lives; //set current lives to remaining for level reload
+                Invoke("StartGame", gameRestartDelay); //restart the level
             }//end if (resetLostLevel)
 
         } // end elseif
     }//end LostLife()
 
- 
+
     //CHECK SCORE UPDATES
     public void UpdateScore(int point = 0)
     { //This method manages the score on update. 
@@ -348,7 +351,7 @@ public class GameManager : MonoBehaviour
         if (nextLevel) { nextLevel = false; NextLevel(); }
 
         //test for lossing level
-        if (levelLost) { levelLost = false; SetGameState(GameState.LostLevel); }
+        if (levelLost) { levelLost = false; LostLife(); }
 
         //test if player won
         if (playerWon) { playerWon = false;  SetGameState(GameState.BeatLevel); }

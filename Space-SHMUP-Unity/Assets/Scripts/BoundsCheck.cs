@@ -2,13 +2,13 @@
  * Created by: Akram Taghavi-Burris
  * Date Created: March 16, 2022
  * 
- * Last Edited by: Aidan Pohl
- * Last Edited: March 21, 2022
+ * Last Edited by: 
+ * Last Edited: 
  * 
  * Description: Checks if object is in bounds of camera
 ****/
 
-/** Using Namespaces **/
+/*** Using Namespaces ***/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +17,7 @@ public class BoundsCheck : MonoBehaviour
 {
     /*** VARIABLES ***/
     [Header("Bounds Settings")]
-    public float radius = 1f;
+    public float radius = 1f;//the radius around the object to keep on screen
     public bool keepOnScreen = true; //does the object need to stay on screen
 
     [HideInInspector]
@@ -86,14 +86,8 @@ public class BoundsCheck : MonoBehaviour
 
     }//end LateUpdate
 
+    
     //Draw the bounds in the scene pane
-    private void OnDrawGizmos()
-    {
-        if (!Application.isPlaying) return;
-        Vector3 boundSize = new Vector3(camWidth * 2, camHeight * 2, 0.1f);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(Vector3.zero, boundSize);
-    }
 
 
 

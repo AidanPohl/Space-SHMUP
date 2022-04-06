@@ -1,12 +1,14 @@
 /**** 
- * Created by: Akram Taghavi-Burris
+ * Created by: Akram Taghavi-Burrs
  * Date Created: Feb 23, 2022
  * 
- * Last Edited by: NA
- * Last Edited: Feb 23, 2022
+ * Last Edited by: 
+ * Last Edited: 
  * 
- * Description: Updates start canvas referecing game manager
+ * Description: Updates start canvas referencing the game manager
 ****/
+
+/*** Using Namespaces ***/
 
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +26,8 @@ public class StartCanvas : MonoBehaviour
     public Text creditsTextbox; //textbox for the credits
     public Text copyrightTextbox; //textbox for the copyright
 
+    /*** MEHTODS ***/
+
     private void Start()
     {
          gm = GameManager.GM; //find the game manager
@@ -33,8 +37,6 @@ public class StartCanvas : MonoBehaviour
          creditsTextbox.text = gm.gameCredits;
          copyrightTextbox.text = gm.copyrightDate;
     }
-
-
 
    public void GameStart()
     {

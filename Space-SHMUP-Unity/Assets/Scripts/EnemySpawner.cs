@@ -2,8 +2,8 @@
  * Created by: Aidan Pohl
  * Date Created: March 28, 2022
  * 
- * Last Edited by: N/A
- * Last Edited: March 28, 2022
+ * Last Edited by: Aidan Pohl
+ * Last Edited: April 6, 2022
  * 
  * Description: Spawns Enemies
 ****/using System.Collections;
@@ -22,14 +22,16 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bndCheck = GetComponent<BoundsCheck>();
-        Invoke("SpawnEnemy", 1f / enemiesSpawnPerSecond);
+        bndCheck = GetComponent<BoundsCheck>(); //reference to BoundsCheck
+        Invoke("SpawnEnemy", 1f / enemiesSpawnPerSecond); //cal SpawnEnemy after time delay
     }//end Start()
 
     void SpawnEnemy()
     {
         //pick a random enemy to instantiate
         int ndx = Random.Range(0, prefabEnemies.Length);
+        /*The Random.Range will never select the max value*/
+        
         GameObject enemyGO = Instantiate<GameObject>(prefabEnemies[ndx]);
 
         //Position the enemy above the screen with a random x position;

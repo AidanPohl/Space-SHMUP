@@ -3,7 +3,7 @@
  * Date Created: March 16, 2022
  * 
  * Last Edited by: Aidan Pohl
- * Last Edited: March 30, 2022
+ * Last Edited: April 6, 2022
  * 
  * Description: Hero ship controller
 ****/
@@ -63,7 +63,7 @@ public class Hero : MonoBehaviour
         get { return (_shieldLevel); }
         set
         {
-            _shieldLevel = Mathf.Min(value, maxShield); //Min returns the smallest of the values, therby making max sheilds 4
+            _shieldLevel = Mathf.Min(value, maxShield); //Min returns the smallest of the values, thereby making max shields 4
 
             //if the sheild is going to be set to less than zero
             if (value < 0)
@@ -72,12 +72,12 @@ public class Hero : MonoBehaviour
                 Debug.Log(gm.name);
                 gm.LostLife();
                 
-            }
+            }//end if (value < 0)
 
-        }
-    }
+        }//end set
+    }//end shieldLevel
 
-    /*** MEHTODS ***/
+    /*** METHODS ***/
 
     //Awake is called when the game loads (before Start).  Awake only once during the lifetime of the script instance.
     void Awake()
@@ -123,9 +123,10 @@ public class Hero : MonoBehaviour
         Transform rootT = other.gameObject.transform.root; //Transform root returns the topmost transform in the hierarchy (i.e parent)
         GameObject GO = rootT.gameObject;
 
-        if(GO == lastTriggerGo) { return; }
+        if(GO == lastTriggerGo) { return; } //don't do anything if it's the same object we last collied with
 
-        lastTriggerGo = GO;
+
+        lastTriggerGo = GO; //set the triger to the last trigger
 
         if(GO.tag == "Enemy")
         {

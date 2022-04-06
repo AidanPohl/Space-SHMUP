@@ -1,12 +1,14 @@
 /**** 
- * Created by: Akram Taghavi-Burris
+ * Created by: Akram Taghavi-Burrs
  * Date Created: Feb 23, 2022
  * 
- * Last Edited by: NA
- * Last Edited: Feb 23, 2022
+ * Last Edited by: 
+ * Last Edited: 
  * 
- * Description: Updates HUD canvas referecing game manager
+ * Description: Updates Heads Up Display (HUD) canvas referencing the game manager
 ****/
+
+/*** Using Namespaces ***/
 
 using System.Collections;
 using System.Collections.Generic;
@@ -31,7 +33,8 @@ public class HUDCanvas : MonoBehaviour
     private int lives;
     private int score;
     private int highscore;
-
+    
+    /*** MEHTODS ***/
     private void Start()
     {
         gm = GameManager.GM; //find the game manager

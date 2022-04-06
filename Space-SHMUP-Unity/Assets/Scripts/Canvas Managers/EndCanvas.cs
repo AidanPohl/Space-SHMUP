@@ -1,13 +1,14 @@
 /**** 
- * Created by: Akram Taghavi-Burris
+ * Created by: Akram Taghavi-Burrs
  * Date Created: Feb 23, 2022
  * 
- * Last Edited by: NA
- * Last Edited: Feb 23, 2022
+ * Last Edited by: 
+ * Last Edited: 
  * 
- * Description: Updates end canvas refencing game manger
+ * Description: Updates end canvas referencing the game manager
 ****/
 
+/*** Using Namespaces ***/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class EndCanvas : MonoBehaviour
     [Header("Canvas SETTINGS")]
     public Text endMsgTextbox; //textbox for the title
 
+    /*** MEHTODS ***/
 
     private void Start()
     {
