@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f82ed2dda81f540a84d5371ebe4bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 8424150448933172755, guid: 5be29112af5ee8544ab587ac608004d3, type: 3}
   projectileSpeed: 40
   speed: 10
   rollMult: -45

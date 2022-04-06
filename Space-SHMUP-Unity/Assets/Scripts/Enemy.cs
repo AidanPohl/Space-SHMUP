@@ -67,4 +67,16 @@ public class Enemy : MonoBehaviour
         temPos.y -= speed * Time.deltaTime; //temporay y postion , moving down
         pos = temPos; //position is equal to tempary positon
     }//end Move()
+
+    private void OnCollisionEnter(Collision other)
+    {
+        GameObject otherGO = other.gameObject;
+        if (otherGO.tag == "ProjectileHero")
+        {
+            Debug.Log(gameObject.name +" hit by " + otherGO.name);
+            otherGO.SetActive(false);//destroy projectile
+            GameManager.GM.UpdateScore(score);//update score
+            Destroy(gameObject);//destroy self
+        }
+    }
 }

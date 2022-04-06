@@ -21,9 +21,7 @@ public class Hero : MonoBehaviour
     #region PlayerShip Singleton
     static public Hero SHIP; //refence GameManager
 
-    [Header("Projectile Settings")]
-    public GameObject projectilePrefab;
-    public float projectileSpeed = 40;
+
     //Check to make sure only one gm of the GameManager is in the scene
     void CheckSHIPIsInScene()
     {
@@ -41,7 +39,14 @@ public class Hero : MonoBehaviour
     #endregion
 
     GameManager gm; //reference to game manager
+    ObjectPool pool; //reference to pool
 
+    [Space(10)]
+
+    [Header("Projectile Settings")]
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 40;
+    [Space(10)]
     [Header("Ship Movement")]
     public float speed = 10;
     public float rollMult = -45;
@@ -89,6 +94,7 @@ public class Hero : MonoBehaviour
     private void Start()
     {
         gm = GameManager.GM; //find the game manager
+        pool = ObjectPool.POOL; //find the object pool
     }//end Start()
 
         // Update is called once per frame (page 551)
@@ -112,7 +118,7 @@ public class Hero : MonoBehaviour
         //allow the ship to fire
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TempFire();
+            FireProjectile();
         }//end if (Input.GetKeyDown(KeyCode.Space))
     }//end Update()
 
@@ -140,12 +146,15 @@ public class Hero : MonoBehaviour
         }
     }//end OnTriggerEnter()
 
-    void TempFire()
+    void FireProjectile()
     {
-        GameObject projGO = Instantiate<GameObject>(projectilePrefab);
-        projGO.transform.position = transform.position;
-        Rigidbody rb = projGO.GetComponent<Rigidbody>();
-        rb.velocity = Vector3.up * projectileSpeed;
+        GameObject projGO = pool.GetObject();
+        if (projGO != null)
+        {
+            projGO.transform.position = transform.position;
+            Rigidbody rb = projGO.GetComponent<Rigidbody>();
+            rb.velocity = Vector3.up * projectileSpeed;
+        }
     }
 
     public void AddScore(int value)
